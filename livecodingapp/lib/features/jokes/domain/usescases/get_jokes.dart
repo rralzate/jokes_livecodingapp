@@ -4,13 +4,13 @@ import 'package:livecodingapp/core/usescases/usescases.dart';
 import 'package:livecodingapp/features/jokes/domain/entities/jokes_entity.dart';
 import 'package:livecodingapp/features/jokes/domain/repositories/jokes_repository.dart';
 
-class GetJokes implements UseCase<JokesEntity, NoParams> {
+class GetJokes implements UseCase<List<JokesEntity>, NoParams> {
   final JokesRepository jokesRepository;
 
   GetJokes(this.jokesRepository);
 
   @override
-  Future<Either<Failure, JokesEntity>> call(NoParams params) {
+  Future<Either<Failure, List<JokesEntity>>> call(NoParams params) {
     return jokesRepository.getJokes();
   }
 }

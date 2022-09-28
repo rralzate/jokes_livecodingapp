@@ -46,30 +46,13 @@ class UserBloc extends Bloc<UserEvent, UserState> {
   }
 
   Future getJokesAll() async {
-    int longitud = 0;
-    for (int i = 1; i <= jokesNumber; i++) {
-      longitud = state.count;
+    final result = await getJokes(NoParams());
 
-      if (longitud <= jokesNumber) {
-        final result = await getJokes(NoParams());
-
-        result.fold((failure) => ErrorEvent(_mapFailureToMessage(failure)),
-            (response) async {
-          listJoke.add(response);
-          add(OnGetstreamjokesEntity(jokesStream));
-          add(OnLoadJokes(response));
-        });
-      } else {
-        break;
-      }
-    }
-    _jokesStreamController.add(listJoke);
-  }
-
-  Future initList(int to) async {
-    for (int i = 1; i <= to; i++) {
-      list.add(i);
-    }
+    result.fold((failure) => ErrorEvent(_mapFailureToMessage(failure)),
+        (response) async {
+      _jokesStreamController.add(response);
+      add(OnGetstreamjokesEntity(jokesStream));
+    });
   }
 
   String _mapFailureToMessage(Failure failure) {

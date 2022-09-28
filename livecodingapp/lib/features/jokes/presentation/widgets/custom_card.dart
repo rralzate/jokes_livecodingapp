@@ -20,16 +20,24 @@ class CustomCard extends StatelessWidget {
         shadowColor: AppTheme.primary.withOpacity(0.5),
         child: Column(
           children: [
-            FadeInImage(
-              image: existIcon
-                  ? NetworkImage(imageUrl)
-                  : const NetworkImage(
-                      "https://img.icons8.com/plasticine/400/chuck-norris.png"),
-              placeholder: const AssetImage('assets/jar-loading.gif'),
-              width: double.infinity,
-              height: 200,
-              fit: BoxFit.cover,
-              fadeInDuration: const Duration(milliseconds: 300),
+            const SizedBox(
+              height: 30,
+            ),
+            Image.network(
+              imageUrl,
+              errorBuilder: (BuildContext context, Object exception,
+                  StackTrace? stackTrace) {
+                // Appropriate logging or analytics, e.g.
+                // myAnalytics.recordError(
+                //   'An error occurred loading "https://example.does.not.exist/image.jpg"',
+                //   exception,
+                //   stackTrace,
+                // );
+                return const Text('NO Image');
+              },
+            ),
+            const SizedBox(
+              height: 10,
             ),
             if (name != null)
               Container(

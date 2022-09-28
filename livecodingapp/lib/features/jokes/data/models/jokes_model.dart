@@ -38,7 +38,7 @@ class JokesModel extends JokesEntity {
         updatedAt: DateTime.parse(json["updated_at"]),
         url: json["url"],
         value: json["value"],
-        existIcon: json["existIcon"],
+        existIcon: json["existIcon"] ?? false,
       );
 
   @override

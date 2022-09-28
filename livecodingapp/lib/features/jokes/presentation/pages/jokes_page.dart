@@ -43,6 +43,7 @@ class _JokesState extends State<Jokes> {
   @override
   void initState() {
     userBloc = BlocProvider.of<UserBloc>(context);
+
     super.initState();
   }
 
@@ -68,7 +69,7 @@ class _JokesState extends State<Jokes> {
       bloc: userBloc,
       builder: (context, UserState state) {
         userBloc.getJokesAll();
-
+        print(state.streamjokesEntity);
         return StreamBuilder(
           stream: state.streamjokesEntity,
           builder: (context, AsyncSnapshot<List<JokesEntity>> snapshot) {
@@ -78,7 +79,7 @@ class _JokesState extends State<Jokes> {
             userBloc.add(OnCount(jokes.length));
 
             return ListView.builder(
-                itemCount: userBloc.getJokesNumber,
+                itemCount: jokes.length,
                 itemBuilder: (_, int index) => _JokeItem(
                       jokesEntity: jokes[index],
                     ));

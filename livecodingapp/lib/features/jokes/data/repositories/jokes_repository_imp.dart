@@ -13,11 +13,15 @@ class JokesReposirotyImpl implements JokesRepository {
   });
 
   @override
-  Future<Either<Failure, JokesEntity>> getJokes() async {
+  Future<Either<Failure, List<JokesEntity>>> getJokes() async {
     try {
-      final jokes = await jokesRemoteDataSource.getJokes();
+      List<JokesEntity> listJokesEntity = <JokesEntity>[];
 
-      return Right(jokes);
+      for (int i = 1; i <= 20; i++) {
+        listJokesEntity.add(await jokesRemoteDataSource.getJokes());
+      }
+
+      return Right(listJokesEntity);
     } on ServerException {
       return Left(ServerFailure());
     }
